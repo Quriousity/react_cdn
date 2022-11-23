@@ -89,3 +89,50 @@ root4.render(
         text={comment.text}
         author={comment.author} />
 );
+
+// 5. State, Lifecycle
+function FormattedDate(props) {
+    return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
+}
+  
+class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {date: new Date()};
+    }
+    // Clock이 처음 DOM에 렌더링 될 때마다 타이머를 설정, Mount
+    componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 1000);
+    }
+    // Clock에 의해 생성된 DOM이 삭제될 때마다 타이머를 해제, Unmount
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+  
+    tick() {
+        this.setState({date: new Date()});
+    }
+  
+    render() {
+        return (
+            <div>
+                <h1>Hello, world!</h1>
+                <FormattedDate date={this.state.date} />
+            </div>
+        );
+    }
+}
+  
+function App() {
+    return (
+        <div>
+            <Clock />
+            <Clock />
+            <Clock />
+        </div>
+    );
+}
+  
+const root5 = ReactDOM.createRoot(document.getElementById('root5'));
+root5.render(<App />);
+  
