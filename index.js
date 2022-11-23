@@ -193,3 +193,103 @@ function App() {
 
 var root5 = ReactDOM.createRoot(document.getElementById('root5'));
 root5.render(React.createElement(App, null));
+
+// 6. Event
+
+var Toggle = function (_React$Component2) {
+    _inherits(Toggle, _React$Component2);
+
+    function Toggle(props) {
+        _classCallCheck(this, Toggle);
+
+        var _this3 = _possibleConstructorReturn(this, (Toggle.__proto__ || Object.getPrototypeOf(Toggle)).call(this, props));
+
+        _this3.state = { isToggleOn: true };
+
+        // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
+        _this3.handleClick = _this3.handleClick.bind(_this3);
+        return _this3;
+    }
+
+    _createClass(Toggle, [{
+        key: 'handleClick',
+        value: function handleClick() {
+            this.setState(function (prevState) {
+                return {
+                    isToggleOn: !prevState.isToggleOn
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'button',
+                { onClick: this.handleClick },
+                this.state.isToggleOn ? 'ON' : 'OFF'
+            );
+        }
+    }]);
+
+    return Toggle;
+}(React.Component);
+
+var root6 = ReactDOM.createRoot(document.getElementById('root6'));
+root6.render(React.createElement(Toggle, null));
+
+// 7. Conditional Rendering
+function WarningBanner(props) {
+    if (!props.warn) {
+        return null;
+    }
+
+    return React.createElement(
+        'div',
+        { className: 'warning' },
+        'Warning!'
+    );
+}
+
+var Page = function (_React$Component3) {
+    _inherits(Page, _React$Component3);
+
+    function Page(props) {
+        _classCallCheck(this, Page);
+
+        var _this4 = _possibleConstructorReturn(this, (Page.__proto__ || Object.getPrototypeOf(Page)).call(this, props));
+
+        _this4.state = { showWarning: true };
+        _this4.handleToggleClick = _this4.handleToggleClick.bind(_this4);
+        return _this4;
+    }
+
+    _createClass(Page, [{
+        key: 'handleToggleClick',
+        value: function handleToggleClick() {
+            this.setState(function (prevState) {
+                return {
+                    showWarning: !prevState.showWarning
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(WarningBanner, { warn: this.state.showWarning }),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleToggleClick },
+                    this.state.showWarning ? 'Hide' : 'Show'
+                )
+            );
+        }
+    }]);
+
+    return Page;
+}(React.Component);
+
+var root7 = ReactDOM.createRoot(document.getElementById('root7'));
+root7.render(React.createElement(Page, null));

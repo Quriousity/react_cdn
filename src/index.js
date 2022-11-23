@@ -136,3 +136,71 @@ function App() {
 const root5 = ReactDOM.createRoot(document.getElementById('root5'));
 root5.render(<App />);
   
+// 6. Event
+class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+  
+        // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
+        this.handleClick = this.handleClick.bind(this);
+    }
+  
+    handleClick() {
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }));
+    }
+  
+    render() {
+        return (
+            <button onClick={this.handleClick}>
+                {this.state.isToggleOn ? 'ON' : 'OFF'}
+            </button>
+        );
+    }
+}
+  
+const root6 = ReactDOM.createRoot(document.getElementById('root6'));
+root6.render(<Toggle />);
+
+// 7. Conditional Rendering
+function WarningBanner(props) {
+    if (!props.warn) {
+        return null;
+    }
+  
+    return (
+        <div className="warning">
+            Warning!
+        </div>
+    );
+}
+  
+class Page extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {showWarning: true}
+        this.handleToggleClick = this.handleToggleClick.bind(this);
+    }
+  
+    handleToggleClick() {
+        this.setState(prevState => ({
+            showWarning: !prevState.showWarning
+        }));
+    }
+    
+    render() {
+        return (
+            <div>
+                <WarningBanner warn={this.state.showWarning} />
+                <button onClick={this.handleToggleClick}>
+                    {this.state.showWarning ? 'Hide' : 'Show'}
+                </button>
+            </div>
+        );
+    }
+  }
+  
+const root7 = ReactDOM.createRoot(document.getElementById('root7')); 
+root7.render(<Page />);
