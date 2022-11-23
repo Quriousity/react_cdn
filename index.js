@@ -35,7 +35,7 @@ function tick() {
         React.createElement(
             'h1',
             null,
-            'Hello, world!'
+            'Hello, Qurious!'
         ),
         React.createElement(
             'h2',
@@ -50,3 +50,60 @@ function tick() {
 var root3 = ReactDOM.createRoot(document.getElementById('root3'));
 root3.render(element);
 setInterval(tick, 1000);
+
+// 4. Component, Props
+function formatDate(date) {
+    return date.toLocaleDateString();
+}
+
+function Avatar(props) {
+    return React.createElement('img', { className: 'Avatar',
+        src: props.user.avatarUrl,
+        alt: props.user.name });
+}
+
+function UserInfo(props) {
+    return React.createElement(
+        'div',
+        { className: 'UserInfo' },
+        React.createElement(Avatar, { user: props.user }),
+        React.createElement(
+            'div',
+            { className: 'UserInfo-name' },
+            props.user.name
+        )
+    );
+}
+
+function Comment(props) {
+    return React.createElement(
+        'div',
+        { className: 'Comment' },
+        React.createElement(UserInfo, { user: props.author }),
+        React.createElement(
+            'div',
+            { className: 'Comment-text' },
+            props.text
+        ),
+        React.createElement(
+            'div',
+            { className: 'Comment-date' },
+            formatDate(props.date)
+        )
+    );
+}
+
+var comment = {
+    date: new Date(),
+    text: 'I hope you enjoy learning React!',
+    author: {
+        name: 'Hello Kitty',
+        avatarUrl: 'http://placekitten.com/g/64/64'
+    }
+};
+
+var root4 = ReactDOM.createRoot(document.getElementById('root4'));
+root4.render(React.createElement(Comment, {
+    date: comment.date,
+    text: comment.text,
+    author: comment.author }));
